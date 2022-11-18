@@ -26,7 +26,7 @@
                         <div class="card-title">{{ product.title }}</div>
                         <div style="color: orange;" class="card-text"> $ {{ product.price }}</div>
                         <a href="{{ product.id }}" class="btn btn-warning">See</a>
-                        <button class="btn btn-success">Add</button>
+                        <button id="{{ product.id }}" class="btn boris btn-success">Add</button>
                     </div>
                 </div>
             </div>
@@ -55,3 +55,27 @@
         </div>
     </div>
 {% endblock %}
+
+{% block js %}
+
+    <script type="text/javascript">
+        console.log('just to test');
+        if (localStorage.getItem('basket') == null){
+            var basket = {};
+        }else{
+            basket = JSON,parse(localStorage.getItem('basket'));
+        }
+        $(document).on('click', '.boris', function(){
+            console.log('Add');
+            var item_id = this.id.toString();
+            console.log(item_id);
+            if(basket[item_id] != undefined){
+                basket[item_id] = basket[item_id] +1
+            }else{
+                basket[item_id] = 1;
+            }
+            console.log(basket)
+        })
+    </script>
+
+{% endblock %}    
